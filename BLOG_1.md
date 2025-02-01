@@ -131,7 +131,7 @@ The script outputs the `text` value, which is retrieved using:
 
 ```bicep
 output result string = deploymentScript.properties.outputs.text
-
+```
 
 # Deploying an Inline Script Using Bicep  
 
@@ -152,7 +152,7 @@ az group create -l westus -n $resourceGroupName
 
 # Deploy the Bicep template
 New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFile -DeploymentDebugLogLevel All  
-
+```
 
 
 ![test1](https://github.com/user-attachments/assets/5aaa5490-a148-4c9f-b039-898e895f38d9)
