@@ -1,7 +1,9 @@
+// Inline script example
+param deploymentScriptName string = 'inlinePS'
 param location string = resourceGroup().location
 
 resource deploymentScript 'Microsoft.Resources/deploymentScripts@2023-08-01' = {
-  name: 'inlinePS'
+  name: deploymentScriptName
   location: location
   kind: 'AzurePowerShell'
   properties: {
