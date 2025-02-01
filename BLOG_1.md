@@ -155,3 +155,7 @@ New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFil
 
 
 
+![test1](https://github.com/user-attachments/assets/5aaa5490-a148-4c9f-b039-898e895f38d9)
+
+![test2](https://github.com/user-attachments/assets/50013ad5-4882-49fa-a654-5ab82b42fafb)
+
