@@ -152,3 +152,6 @@ az group create -l westus -n $resourceGroupName
 
 # Deploy the Bicep template
 New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFile -DeploymentDebugLogLevel All  
+
+
+
