@@ -168,5 +168,6 @@ The deployment script
 
 Additionally, we can also view the deployment script logs.
 
-![test2](https://github.com/user-attachments/assets/50013ad5-4882-49fa-a654-5ab82b42fafb)
+![408822783-50013ad5-4882-49fa-a654-5ab82b42fafb](https://github.com/user-attachments/assets/a208c284-4e96-436f-aa45-8a870abd76c8)
+
 
