@@ -11,7 +11,8 @@ Once the deployment script finishes executing, the storage account and container
 
 ## 2. Minimum Permissions Required  
 
-To execute deployment scripts, the deployment principal must have the necessary permissions. Below is a **custom role definition** that grants the least privilege required.
+To execute deployment scripts, the deployment service principal (or user) must have the necessary permissions.
+Below is a **custom role definition** that grants the least privilege required.
 
 ### **Custom Role: Deployment Script Minimum Privilege for Deployment Principal**
 ```json
@@ -35,9 +36,9 @@ To execute deployment scripts, the deployment principal must have the necessary 
   ]
 }
 ```
-## Description of Role Permissions  
+### **Description of Role Permissions**  
 
-This custom role ensures that the deployment principal has only the necessary permissions to manage resources required for deployment scripts.  
+This custom role ensures that the deployment service principal (or user) has only the necessary permissions to manage resources required for deployment scripts.  
 
 - **Storage Accounts (`Microsoft.Storage/storageAccounts/*`)** – Full control over storage accounts.  
 - **Container Groups (`Microsoft.ContainerInstance/containerGroups/*`)** – Enables complete management of container instances.  
@@ -66,15 +67,15 @@ A deployment script requires a **new Azure Container Instance**. You **cannot** 
 
 This setup ensures that each deployment script runs in an isolated and controlled environment.  
 
-# Inline Script Example in Bicep
+## 4. Inline Script Example in Bicep
 
-## Overview  
+### 1. Overview  
 
 This example demonstrates how to use an **inline Azure PowerShell script** within a **Bicep deployment script**. The script runs during deployment and outputs a simple message.
 
 ---
 
-## Bicep Code Explanation  
+### 2. Bicep Code   
 
 ```bicep
 
@@ -101,15 +102,15 @@ resource deploymentScript 'Microsoft.Resources/deploymentScripts@2023-08-01' = {
 output result string = deploymentScript.properties.outputs.text
 ```
 
-# Explanation of Each Component  
+### Explanation of Each Component  
 
-## 1. Parameters  
+#### 1. Parameters  
 - **`deploymentScriptName`** – Specifies the name of the deployment script (`inlinePS`).  
 - **`location`** – Uses the resource group’s location to deploy the script.  
 
 ---
 
-## 2. Deployment Script Resource  
+#### 2. Deployment Script Resource  
 This defines a **`Microsoft.Resources/deploymentScripts`** resource that executes an **Azure PowerShell script**.  
 
 - **`kind: 'AzurePowerShell'`** – Specifies that the script will run using Azure PowerShell.  
@@ -121,26 +122,26 @@ This defines a **`Microsoft.Resources/deploymentScripts`** resource that execute
 
 ---
 
-## 3. Retention Interval  
+#### 3. Retention Interval  
 - **`retentionInterval: 'PT1H'`** – Keeps the script execution logs for **1 hour** before automatic cleanup.  
 
 ---
 
-## 4. Output Variable  
+#### 4. Output Variable  
 The script outputs the `text` value, which is retrieved using:  
 
 ```bicep
 output result string = deploymentScript.properties.outputs.text
 ```
 
-# Deploying an Inline Script Using Bicep  
+### Deploying an Inline Script Using Bicep  
 
-## Overview  
+
 This example demonstrates how to deploy an **inline Bicep script** using **Azure CLI** and **PowerShell**. The script creates a resource group and deploys the Bicep template within it.  
 
 ---
 
-## Deployment Commands  
+### Deployment Commands  
 
 ```powershell
 $templateFile = 'inline-script.bicep' 
@@ -154,8 +155,18 @@ az group create -l westus -n $resourceGroupName
 New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFile -DeploymentDebugLogLevel All  
 ```
 
+## 5. Monitoring
+
+During the deployment of the deployment script, we can observe the following resources listed in the resource group:
+
+A storage account
+A container instance
+The deployment script
+
 
 ![test1](https://github.com/user-attachments/assets/5aaa5490-a148-4c9f-b039-898e895f38d9)
+
+Additionally, we can also view the deployment script logs.
 
 ![test2](https://github.com/user-attachments/assets/50013ad5-4882-49fa-a654-5ab82b42fafb)
 
